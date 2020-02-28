@@ -19,6 +19,9 @@ const MyD3Component = (props: IProps) => {
             if (props.data && d3Container.current) {
                 const svg = d3.select(d3Container.current);
 
+                let rect = d3.select("rect");
+                rect.style("fill", "steelblue");
+
                 // Bind D3 data
                 const update = svg
                     .append('g')
@@ -41,6 +44,8 @@ const MyD3Component = (props: IProps) => {
                 // Remove old D3 elements
                 update.exit()
                     .remove();
+
+                rect.transition().delay(1000).attr("height", 100);
             }
         },
 
@@ -56,10 +61,12 @@ const MyD3Component = (props: IProps) => {
     return (
         <svg
             className="d3-component"
-            width={400}
-            height={200}
+            width={window.screen.availWidth}
+            height={window.screen.availHeight}
             ref={d3Container}
-        />
+        >
+            <rect x={0} y={0} width={window.screen.availWidth} height={window.screen.availHeight}></rect>
+        </svg>
     );
 }
 
